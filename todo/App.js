@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, FlatList, Button } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Button, Alert } from 'react-native';
 import Header from './components/header';
 import TodoItem from './components/todoitem';
 import AddTodo from './components/addtodo';
@@ -19,12 +19,18 @@ export default function App() {
   };
 
   const submitHandler = (text) => {
-    setTodos((prevTodos) => {
-      return [
-        { text: text, key: Math.random().toString() },
-        ...prevTodos
-      ]
-    });
+    if (text.length > 3) {
+      setTodos((prevTodos) => {
+        return [
+          { text: text, key: Math.random().toString() },
+          ...prevTodos
+        ]
+      });
+    } else {
+      Alert.alert('OOPS!', 'Todos must atleast be 4 characters long!', [
+        { text: 'understood biat', onPress: () => console.log('Alert is closed!') }
+      ]);
+    }
   };
 
   const revive = () => {
